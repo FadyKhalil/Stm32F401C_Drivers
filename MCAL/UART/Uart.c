@@ -278,7 +278,7 @@ void USART1_IRQHandler(void)
 			Uart_prvBuzyFlag[UART1] = 0;
 			Uart_prvBufferSize[UART1] = 0;
 
-			/*call function*/
+			cbf[UART1]();
 
 		}/*end of if*/
 		else
@@ -301,7 +301,7 @@ void USART2_IRQHandler(void)
 			Uart_prvBuzyFlag[UART2] = 0;
 			Uart_prvBufferSize[UART2] = 0;
 
-			/*call function*/
+			cbf[UART2]();
 
 		}/*end of if*/
 		else
@@ -324,7 +324,7 @@ void USART6_IRQHandler(void)
 			Uart_prvBuzyFlag[UART6] = 0;
 			Uart_prvBufferSize[UART6] = 0;
 
-			/*call function*/
+			cbf[UART6]();
 
 		}/*end of if*/
 		else
