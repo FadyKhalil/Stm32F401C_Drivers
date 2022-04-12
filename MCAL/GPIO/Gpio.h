@@ -8,6 +8,7 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
+#include "../Services/Std_types.h"
 
 /*##########################################################################*/
 /**************************Types**************************/
@@ -230,7 +231,7 @@ Gpio_tenuErrorStatus Gpio_enuPinConfigurationInit(GPIO_tstrPinConfiguration* Add
  * Return:				Return Error Status if any
  *
  * */
-Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPinNumber, u8 Copy_u8GpioPinValue);
+Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u16 Copy_u8GpioPinNumber, u8 Copy_u8GpioPinValue);
 
 
 /*
@@ -262,7 +263,7 @@ Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPi
  * Return:				Return Error Status if any
  *
  * */
-Gpio_tenuErrorStatus Gpio_enuGetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPinNumber, pu8 Add_pu8GpioPinValue);
+Gpio_tenuErrorStatus Gpio_enuGetPinValue(void* Add_vidGpioPort, u16 Copy_u8GpioPinNumber, pu8 Add_pu8GpioPinValue);
 
 
 #endif

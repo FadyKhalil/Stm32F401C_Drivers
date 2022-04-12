@@ -6,8 +6,9 @@
  */
 
 
-#include "Std_types.h"
-#include "Gpio.h"
+#include "../MCAL/Gpio.h"
+
+#include "../Services/Std_types.h"
 
 
 /**********************************************************/
@@ -132,19 +133,13 @@ Gpio_tenuErrorStatus Gpio_enuPinConfigurationInit(GPIO_tstrPinConfiguration* Add
 }/*End of Function Gpio_PinConfigurationInit*/
 
 
-Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPinNumber, u8 Copy_u8GpioPinValue)
+Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u16 Copy_u8GpioPinNumber, u8 Copy_u8GpioPinValue)
 {
 	Gpio_tenuErrorStatus Loc_enuErrorStatus = Gpio_enuOK;
 
 	u32 Loc_u32BsrrVariable = 0;
 
-	/*Check Pin value entered*/
-	if (Copy_u8GpioPinNumber > 15)
-	{
-		Loc_enuErrorStatus = Gpio_enuPinNumberError;
-	}/*end of If for checking pin condition*/
-
-	else if (Copy_u8GpioPinValue > 2)
+	if (Copy_u8GpioPinValue > 2)
 	{
 		Loc_enuErrorStatus = Gpio_enuPinValueError;
 	}
@@ -155,7 +150,7 @@ Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPi
 		if (Copy_u8GpioPinValue == GPIO_u8HIGH)
 		{
 			Loc_u32BsrrVariable = ((Gpio_tstrRegister*)Add_vidGpioPort)->Bsrr;
-			Loc_u32BsrrVariable |= 1 << Copy_u8GpioPinNumber;
+			Loc_u32BsrrVariable |= Copy_u8GpioPinNumber;
 
 			((Gpio_tstrRegister*)Add_vidGpioPort)->Bsrr = Loc_u32BsrrVariable;
 
@@ -165,7 +160,7 @@ Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPi
 		{
 
 			Loc_u32BsrrVariable =((Gpio_tstrRegister*)Add_vidGpioPort)->Bsrr;
-			Loc_u32BsrrVariable = 1 << (Copy_u8GpioPinNumber+16);
+			Loc_u32BsrrVariable = Copy_u8GpioPinNumber << 16;
 
 			((Gpio_tstrRegister*)Add_vidGpioPort)->Bsrr = Loc_u32BsrrVariable;
 
@@ -178,7 +173,7 @@ Gpio_tenuErrorStatus Gpio_enuSetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPi
 
 }/*end of function Gpio_enuSetPinValue*/
 
-Gpio_tenuErrorStatus Gpio_enuGetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPinNumber, pu8 Add_pu8GpioPinValue)
+Gpio_tenuErrorStatus Gpio_enuGetPinValue(void* Add_vidGpioPort, u16 Copy_u8GpioPinNumber, pu8 Add_pu8GpioPinValue)
 {
 	Gpio_tenuErrorStatus Loc_enuErrorStatus = Gpio_enuOK;
 
@@ -197,7 +192,7 @@ Gpio_tenuErrorStatus Gpio_enuGetPinValue(void* Add_vidGpioPort, u8 Copy_u8GpioPi
 	else
 	{
 		/*Get the pin Value*/
-		*Add_pu8GpioPinValue = (((Gpio_tstrRegister*)Add_vidGpioPort)->Idr >> Copy_u8GpioPinNumber) & 0x01;
+		*Add_pu8GpioPinValue = ((Gpio_tstrRegister*)Add_vidGpioPort)->Idr & Copy_u8GpioPinNumber;
 
 	}/*end of else*/
 
