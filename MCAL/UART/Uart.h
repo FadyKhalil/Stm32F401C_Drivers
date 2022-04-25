@@ -12,6 +12,9 @@
 
 /**********************TypeDef*******************/
 
+#define F_CLK	16000000
+
+
 /*Uart Channel*/
 typedef enum
 {
@@ -35,6 +38,7 @@ typedef struct
 	u8 ReceiveDateRegisterEmpty_Int;
 	u8 TransEnable;
 	u8 ReceiveEnable;
+	u16 BaudRate;
 
 }Uart_ConfigType;
 
@@ -51,7 +55,7 @@ typedef enum
 }Uart_tenuErrorStatus;
 
 
-/*Uart Data storage*/
+/*Uart Data storage to send*/
 typedef struct
 {
 	pu8 Data;
@@ -60,13 +64,37 @@ typedef struct
 
 }Uart_ConfigBuffer;
 
+/*Uart Data storage to Receive*/
+typedef struct
+{
+	pu8 Data;
+	u32 Size;
+	u32 Index;
+	Uart_Channel Channel;
+
+}Uart_ConfigReceiveBuffer;
+
+/*Uart Mode*/
+typedef enum
+{
+	SEND,
+	RECEIVE
+
+}Uart_Mode;
+
+
+
 /*callback function*/
 typedef void(*CallBack)(void);
 
 
 
+/************************DEFINE***********************/
+
+#define ENABLE 		1
+#define DISABLE		0
+
 /***************Function Declaration*******************/
-void Uart_vidGenerateBaudRate(u16 Mantissa, u8 Fraction);
 
 
 void Uart_vidInit(const Uart_ConfigType* ConfigPtr);
@@ -74,11 +102,11 @@ void Uart_vidInit(const Uart_ConfigType* ConfigPtr);
 
 Uart_tenuErrorStatus Uart_SendByteAsynchronous(Uart_Channel Channel, u8 Copy_u8Data);
 
+Uart_tenuErrorStatus Uart_ReceiveBuffer(const Uart_ConfigReceiveBuffer* ReceiveBuffer);
 
-Uart_tenuErrorStatus Uart_RegisterCallBackFunction(Uart_Channel Channel, CallBack Add_CallBackFunction);
+Uart_tenuErrorStatus Uart_RegisterCallBackFunction(Uart_Channel Channel, Uart_Mode Mode, CallBack Add_CallBackFunction);
 
-
-Uart_tenuErrorStatus Uart_SendBufferZeroCopy(Uart_Channel Channel, pu8 Add_pu8Buffer, u32 Copy_u32DataSize);
+Uart_tenuErrorStatus Uart_SendBufferZeroCopy(const Uart_ConfigBuffer* Copy_sConfigBuffer);
 
 
 
