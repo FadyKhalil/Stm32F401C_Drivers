@@ -8,7 +8,7 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-#include "../Services/Std_types.h"
+//#include "../../Services/Std_types.h"
 
 /*##########################################################################*/
 /**************************Types**************************/
@@ -55,6 +55,7 @@ typedef struct
 	u8 GPIO_Mode;
 	u8 GPIO_Speed;
 	u16 GPIO_Pin;
+	u8 GPIO_ALTF;
 
 }GPIO_tstrPinConfiguration;
 
@@ -145,6 +146,27 @@ typedef struct
 #define GPIO_Speed_Medium			0x01
 #define GPIO_Speed_High				0x10
 #define GPIO_Speed_Very_High		0x11
+
+
+
+/*
+ * Alternative function
+ * */
+#define GPIO_ALTERNATIVE_SYSTEM		0x00
+#define GPIO_ALTERNATIVE_TIM1		0x01
+#define GPIO_ALTERNATIVE_TIM3		0x02
+#define GPIO_ALTERNATIVE_TIM9		0x03
+#define GPIO_ALTERNATIVE_I2C		0x04
+#define GPIO_ALTERNATIVE_SPI		0x05
+#define GPIO_ALTERNATIVE_SPI3		0x06
+#define GPIO_ALTERNATIVE_USART1		0x07
+#define GPIO_ALTERNATIVE_USART6		0x08
+#define GPIO_ALTERNATIVE_SYSTEM		0x00
+#define GPIO_ALTERNATIVE_SYSTEM		0x00
+#define GPIO_ALTERNATIVE_SYSTEM		0x00
+#define GPIO_ALTERNATIVE_SYSTEM		0x00
+#define GPIO_ALTERNATIVE_SYSTEM		0x00
+#define GPIO_ALTERNATIVE_SYSTEM		0x00
 
 /*#####################################################################*/
 
