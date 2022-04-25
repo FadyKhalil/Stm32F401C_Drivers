@@ -10,8 +10,8 @@
 #include "Gpio.h"
 #include "Rcc.h"
 #include "Lcd_cfg.h"
-#include "Lcd_prv.h"
 #include "Lcd.h"
+#include "Lcd_prv.h"
 
 
 
@@ -254,7 +254,7 @@ void Lcd_vidTask(void)
 void Lcd_vidHelperDisplayCharacter(u8 Copy_u8Character) {
 
 
-	volatile LCD_tunByteAcces Loc_tunBitAccess;
+	LCD_tunByteAcces Loc_tunBitAccess;
 
 	Loc_tunBitAccess.LCD_u8Comunication = Copy_u8Character;
 
@@ -323,6 +323,8 @@ void Lcd_vidHelperPinInit(void)
 		/*Init the Pin speed*/
 		Gpio_Configuration.GPIO_Speed = Lcd_strPin[Loc_u8Counter].Speed;
 
+
+		// check if clock open or not
 		if(Gpio_Configuration.GPIO_Port == PORTA && !(Loc_u8CheckingClockON & 0x01))
 		{
 			Rcc_SetAHB1Peripheral(SET_RESET_GPIOA);
@@ -425,7 +427,7 @@ static void Lcd_vidWriteProcess(void)
 static void Lcd_vidCommand(u8 Copy_u8Command)
 {
 
-	volatile LCD_tunByteAcces Loc_tunBitAccess;
+	LCD_tunByteAcces Loc_tunBitAccess;
 
 	Loc_tunBitAccess.LCD_u8Comunication = Copy_u8Command;
 
