@@ -8,6 +8,7 @@
 #ifndef SWITCH_H_
 #define SWITCH_H_
 
+#include "../../Services/Std_types.h"
 #include "Switch_cfg.h"
 
 typedef enum

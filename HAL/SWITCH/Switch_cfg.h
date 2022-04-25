@@ -8,10 +8,10 @@
 #ifndef SWITCH_CFG_H_
 #define SWITCH_CFG_H_
 
-#define NUMBER_OF_SWITCH	3
+#define NUMBER_OF_SWITCH	2
 
-#define SWITCH_00	0
-#define SWITCH_01	1
+#define SWITCH_IGNITION	0
+#define SWITCH_DOOR		1
 #define SWITCH_02	2
 #define SWITCH_03	3
 #define SWITCH_04	4

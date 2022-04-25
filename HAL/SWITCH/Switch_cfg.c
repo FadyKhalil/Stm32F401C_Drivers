@@ -5,28 +5,23 @@
  *      Author: fady
  */
 
-
-#include "Gpio.h"
+#include "../../MCAL/GPIO/Gpio.h"
 #include "Switch.h"
 #include "Switch_cfg.h"
 
 Switch_tstrConfiguration Switch_astrSwitchs[NUMBER_OF_SWITCH] = {
-		[SWITCH_00] = {
+		[SWITCH_IGNITION] = {
 				.Mode = SWITCH_PULLUP,
 				.Port = PORTA,
 				.Pin = GPIO_PIN01
 		},
 
-		[SWITCH_01] = {
+		[SWITCH_DOOR] = {
 				.Mode = SWITCH_PULLUP,
 				.Port = PORTA,
-				.Pin = GPIO_PIN02
+				.Pin = GPIO_PIN00
 		},
 
-		[SWITCH_02] = {
-				.Mode = SWITCH_PULLUP,
-				.Port = PORTA,
-				.Pin = GPIO_PIN03
-		}
+
 };
 

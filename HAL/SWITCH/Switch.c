@@ -6,16 +6,16 @@
  */
 
 
-#include "Std_types.h"
-#include "Rcc.h"
-#include "Gpio.h"
+#include "../../Services/Std_types.h"
+#include "../../MCAL/RCC/Rcc.h"
+#include "../../MCAL/GPIO/Gpio.h"
 #include "Switch_cfg.h"
 #include "Switch.h"
 
 
 extern Switch_tstrConfiguration Switch_astrSwitchs[];
 
-static u8 ButtonStatus[NUMBER_OF_SWITCH];
+static u8 ButtonStatus[NUMBER_OF_SWITCH] = {1};
 
 
 
@@ -95,7 +95,7 @@ Switch_tenuErrorStatus Switch_enuReadStatus(u8 Copy_u8SwitchNumber, pu8 Add_pu8P
 		Loc_enuErrorStatus = Switch_enuWrongPin;
 	}
 
-	else if (Add_pu8PinStatus == NULL)
+	else if (Add_pu8PinStatus == (void*)0)
 	{
 		Loc_enuErrorStatus = Switch_enuNullPointer;
 	}
@@ -119,7 +119,7 @@ void Switch_vidTask(void)
 	for(Loc_u8Iterator = 0; Loc_u8Iterator < NUMBER_OF_SWITCH; Loc_u8Iterator++)
 	{
 
-		Gpio_enuGetPinValue(Switch_astrSwitchs[Loc_u8Iterator].Port, Loc_u8Iterator, &Loc_u8CurrentValue);
+		Gpio_enuGetPinValue(Switch_astrSwitchs[Loc_u8Iterator].Port, Switch_astrSwitchs[Loc_u8Iterator].Pin, &Loc_u8CurrentValue);
 
 		if(Loc_u8CurrentValue == Loc_u32prvPrevValue[Loc_u8Iterator])
 		{
