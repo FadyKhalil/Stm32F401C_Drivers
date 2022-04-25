@@ -8,6 +8,7 @@
 #ifndef NVIC_H_
 #define NVIC_H_
 
+#include "../../Services/Std_types.h"
 /*################################################################*/
 /******************************Types******************************/
 
@@ -16,9 +17,18 @@ typedef struct
 
 
 
-}Nvic_tstrIRQ;
+}Nvic_tsIRQ;
+
+
+
 
 /*###############################################################*/
+
+#define	Group3    0x05FA0300  	 	// 4 bits => for group Priority && 0 bits for sub group
+#define Group4    0x05FA0400 		// 3 bits => for group Priority && 1 bits for sub group
+#define	Group5    0x05FA0500		// 2 bits => for group Priority && 2 bits for sub group
+#define	Group6    0x05FA0600		// 1 bits => for group Priority && 3 bits for sub group
+#define	Group7    0x05FA0700		// 0 bits => for group Priority && 4 bits for sub group
 
 
 #define NVIC_WINDOW_WATCHDOG_TIMER		0
@@ -84,13 +94,13 @@ typedef struct
 
 
 
-void Nvic_vidEnableIrq(u8 Copy_strIrq);
-void Nvic_vidDisableIrq(u8 Copy_strIrq);
-void Nvic_vidSetPendingIrq(u8 Copy_strIrq);
-void Nvic_vidClearPendingIrq(u8 Copy_strIrq);
-void Nvic_vidGetPendingIrq(u8 Copy_strIrq, pu8 Add_pu8PendingStatus);
-void Nvic_vidSetPriority(u8 Copy_strIrq, u8 Copy_u8Prioty);
-void Nvic_vidGetPriority(u8 Copy_strIrq, pu8 Add_pu8Prioty);
+extern void Nvic_vidEnableIrq(u8 Copy_strIrq);
+extern void Nvic_vidDisableIrq(u8 Copy_strIrq);
+extern void Nvic_vidSetPendingIrq(u8 Copy_strIrq);
+extern void Nvic_vidClearPendingIrq(u8 Copy_strIrq);
+extern void Nvic_vidGetPendingIrq(u8 Copy_strIrq, pu8 Add_pu8PendingStatus);
+extern void Nvic_vidGetPriority(u8 Copy_strIrq, pu8 Add_pu8Prioty);
+extern void Nvic_vidSetPriority(s8 Copy_strIrq, u8 Copy_u8GroupPrioty,  u8 Copy_u8SubGroupPrioty, u32 Copy_u32Group);
 
 
 #endif /* NVIC_H_ */
