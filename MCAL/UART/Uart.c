@@ -7,9 +7,9 @@
 
 
 #include <stdlib.h>
-#include "Services/Std_types.h"
-#include "MCAL/Rcc.h"
-#include "MCAL/Nvic.h"
+#include "../../Services/Std_types.h"
+#include "../RCC/Rcc.h"
+#include "../NVIC/Nvic.h"
 #include "Uart.h"
 
 /*****************typedef**************************/
@@ -395,12 +395,36 @@ Uart_tenuErrorStatus Uart_ReceiveBuffer(const Uart_ConfigReceiveBuffer* ReceiveB
 	return Loc_enuErrorStatus;
 }
 
+
+Uart_tenuErrorStatus Uart_SendBufferDma(void)
+{
+	Uart_tenuErrorStatus Loc_enuErroStatus = Uart_enuOk;
+
+	/*enable DMA Transmitting in Uart*/
+	UART1_ADDRESS->CR3 |= 1 << 7;
+
+
+	return Loc_enuErroStatus;
+}
+
+Uart_tenuErrorStatus Uart_ReceiveBufferDma(void)
+{
+	Uart_tenuErrorStatus Loc_enuErroStatus = Uart_enuOk;
+
+	/*enable DMA receiving in Uart*/
+	UART1_ADDRESS->CR3 |= 1 << 6;
+
+
+	return Loc_enuErroStatus;
+}
+
 /***********************Handler Function******************************/
 
 void USART1_IRQHandler(void)
 {
 	if(cbf[UART1])
 	{
+		/*Read transmitting flag*/
 		if((UART1_ADDRESS->SR >> 6) & 0x01)
 		{
 			if(Uart_prvBufferIndex[UART1] == Uart_prvBufferSize[UART1])
